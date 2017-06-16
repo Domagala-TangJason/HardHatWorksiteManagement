@@ -13,7 +13,7 @@ public class Tasks {
     private Boolean taskStatus;
     // true will mean that the task has been complete, false means it has not been
 
-//TODO make tasks into array
+//TODO make tasks into array, method to delete tasks
 
     public Tasks (
             Long taskId, String taskDescription, String taskStatusDescription, Boolean taskStatus){
@@ -44,8 +44,7 @@ public class Tasks {
     }
 
     public void setTaskStatusDescription(String taskStatusDescription){
-        this.taskStatusDescription = taskStatusDescription;
-    }
+        this.taskStatusDescription = taskStatusDescription;}
 
     public void setTaskStatus(Boolean taskStatus){
         this.taskStatus = taskStatus;
@@ -53,5 +52,14 @@ public class Tasks {
 
     public void setTaskId(Long taskId){
         this.taskId = taskId;
+    }
+
+    @Override
+    public String toString(){
+        return "\nTask ID: " + taskId +
+                "\nTask Description: " + taskDescription +
+                "\nTask Status Desc: " + taskStatusDescription +
+                "\nTask Complete?: " + taskStatus +
+                "}";
     }
 }

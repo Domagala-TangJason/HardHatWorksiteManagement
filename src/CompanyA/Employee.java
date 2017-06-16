@@ -1,4 +1,4 @@
-package Employees;
+package CompanyA;
 
 /**
  * Created by Jason on 6/12/2017.
@@ -10,15 +10,13 @@ public class Employee {
     private Long employeeId;
     private String firstName;
     private String lastName;
-    private Long hoursWorked;
-    private Long hourlyPayRate;
+    private Double hourlyPayRate;
 
-    public Employee(Long employeeId, String firstName, String lastName, Long hourlyPayRate, Long hoursWorked){
+    public Employee(Long employeeId, String firstName, String lastName, Double hourlyPayRate) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.hourlyPayRate = hourlyPayRate;
-        this.hoursWorked = hoursWorked;
     }
 
     public Long getEmployeeId() {
@@ -33,11 +31,7 @@ public class Employee {
         return lastName;
     }
 
-    public Long getHoursWorked(){
-        return hoursWorked;
-    }
-
-    public Long getHourlyPayRate(){
+    public Double getHourlyPayRate(){
         return hourlyPayRate;
     }
 
@@ -53,17 +47,18 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public void addHoursWorked(Long hoursWorked){
-        this.hoursWorked = this.hoursWorked + hoursWorked;
-    }
-
-    public void resetHoursWorked(Long a){
-        a = Long.valueOf(0);
-        this.hoursWorked = a;
-    }
-
-    public void setHourlyPayRate (Long hourlyPayRate){
+    public void setHourlyPayRate (Double hourlyPayRate){
         this.hourlyPayRate = hourlyPayRate;
     }
-    //TODO override the prointouts
+
+
+    //TODO override the printouts
+    @Override
+    public String toString(){
+        return "\n{Employee ID: " + employeeId +
+                "\nFirst Name: " + firstName +
+                "\nLast Name: " + lastName +
+                "\nPay Rate: $" + hourlyPayRate + "/hour." +
+                "}";
+    }
 }

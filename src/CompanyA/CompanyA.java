@@ -1,7 +1,5 @@
 package CompanyA;
 
-import Employees.Employee;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +14,31 @@ public class CompanyA {
     Long lastWorksiteId = 0L;
 
     public Employee createEmployee(
-            String firstName, String lastName, Long hourlyPayRate, Long hoursWorked){
+            String firstName, String lastName, Double hourlyPayRate){
         Long myNewId = lastEmployeeId++;
-        Employee em = new Employee(myNewId, firstName,lastName, hourlyPayRate, hoursWorked);
+        Employee em = new Employee(myNewId, firstName,lastName, hourlyPayRate);
         employeeList.add(em);
         return em;
     }
 
     public Worksite createWorksite(
-            String worksiteLocation, String worksiteDescription, Long totalHoursWorked, ArrayList taskList){
+            String worksiteLocation, String worksiteDescription){
         Long myNewId = lastWorksiteId++;
-        Worksite ws = new Worksite(myNewId, worksiteLocation, worksiteDescription, totalHoursWorked, taskList);
+        Worksite ws = new Worksite(myNewId, worksiteLocation, worksiteDescription);
         worksiteList.add(ws);
         return ws;
         }
+
+    //TODO delete employee/worksite, assign empoloyee,
+
+    @Override
+    public String toString(){
+        return "CompanyA{ " +
+                "\nEmployees: " + employeeList +
+                "\nWorksites: " + worksiteList +
+                "\nLast Employee ID: " + lastEmployeeId +
+                "\nLast Worksite ID: " + lastWorksiteId +
+                "}";
     }
+
+}

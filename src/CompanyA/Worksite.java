@@ -12,23 +12,20 @@ public class Worksite {
     private Long worksiteId;
     private String worksiteLocation;
     private String worksiteDescription;
-    private Long totalHoursWorked;
+    private Double totalHoursWorked;
 
     List<Tasks> taskList = new ArrayList<>();
     Long lastTaskId = 0L;
 
     public Worksite(
-            Long worksiteId, String worksiteLocation, String worksiteDescription, Long totalHoursWorked,
-            ArrayList taskList){
+            Long worksiteId, String worksiteLocation, String worksiteDescription){
         this.worksiteId = worksiteId;
         this.worksiteLocation = worksiteLocation;
         this.worksiteDescription = worksiteDescription;
-        this.totalHoursWorked = totalHoursWorked;
-        this.taskList = taskList;
     }
 
     public Tasks createTasks(
-            Long taskId, String taskDescription, String taskStatusDescription, Boolean taskStatus){
+            String taskDescription, String taskStatusDescription, Boolean taskStatus){
         Long myNewId = lastTaskId++;
         Tasks tsk = new Tasks(myNewId, taskDescription, taskStatusDescription, taskStatus);
         taskList.add(tsk);
@@ -47,7 +44,7 @@ public class Worksite {
         return worksiteDescription;
     }
 
-    public Long getTotalHoursWorked(){
+    public Double getTotalHoursWorked(){
         return totalHoursWorked;
     }
 
@@ -62,5 +59,18 @@ public class Worksite {
     public void setWorksiteDescription(String worksiteDescription){
         this.worksiteDescription = worksiteDescription;
     }
+
     //TODO make a setter that adds all the total hours worked from employees
+
+    @Override
+    public String toString(){
+        return "\n" +
+                "Worksite ID: " + worksiteId +
+                "\nWorksite Location: " + worksiteLocation +
+                "\nWorksite Description: " + worksiteDescription +
+                "\nTasks: " + taskList +
+                "\nLast Task ID: " + lastTaskId +
+                "}";
+
+    }
 }
