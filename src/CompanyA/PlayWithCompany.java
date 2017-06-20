@@ -19,6 +19,9 @@ public class PlayWithCompany {
     emp1.setFirstName("Billy");
     System.out.println(emp1);
 
+    Employee emp3 = companyA.createEmployee("Alex", "Kraft", 0.50d);
+    emp3.setHourlyPayRate(100d);
+
     //TODO test the worksite creation and prints
 
     Worksite wrkst1 = companyA.createWorksite(

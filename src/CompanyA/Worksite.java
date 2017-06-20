@@ -1,5 +1,7 @@
 package CompanyA;
 
+import CompanyA.Exceptions.WorkerException;
+
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.ArrayList;
@@ -13,15 +15,20 @@ public class Worksite {
     private String worksiteLocation;
     private String worksiteDescription;
     private Double totalHoursWorked;
+    private CompanyA ownerCompany;
 
     List<Tasks> taskList = new ArrayList<>();
     Long lastTaskId = 0L;
+    List<Employee> workerList;
 
     public Worksite(
-            Long worksiteId, String worksiteLocation, String worksiteDescription){
+            Long worksiteId, String worksiteLocation, String worksiteDescription, CompanyA company){
         this.worksiteId = worksiteId;
         this.worksiteLocation = worksiteLocation;
         this.worksiteDescription = worksiteDescription;
+        ownerCompany = company;
+        workerList = new ArrayList<Employee>();
+
     }
 
     public Tasks createTasks(
@@ -30,6 +37,15 @@ public class Worksite {
         Tasks tsk = new Tasks(myNewId, taskDescription, taskStatusDescription, taskStatus);
         taskList.add(tsk);
         return tsk;
+    }
+
+    public void addWorker(Employee worker){
+                if(!workerList.contains(worker)){
+                    workerList.add(worker);
+                }
+                if(!worker.hasWorksite(this)){
+                    worker.addWorksite(this);
+                };
     }
 
     public Long getWorksiteId(){
@@ -61,6 +77,10 @@ public class Worksite {
     }
 
     //TODO make a setter that adds all the total hours worked from employees
+
+    private void setHourTotal() throws WorkerException {
+        totalHoursWorked = ownerCompany.getHoursFromWorkers(this);
+    }
 
     @Override
     public String toString(){

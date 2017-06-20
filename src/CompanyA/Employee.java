@@ -1,5 +1,10 @@
 package CompanyA;
 
+import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jason on 6/12/2017.
  */
@@ -11,12 +16,18 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Double hourlyPayRate;
+    private List<Worksite> myWorksites;
+    private CompanyA myEmployer;
+    private List<Double> hoursWorked;
 
-    public Employee(Long employeeId, String firstName, String lastName, Double hourlyPayRate) {
+    public Employee(Long employeeId, String firstName, String lastName, Double hourlyPayRate, CompanyA employer) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.hourlyPayRate = hourlyPayRate;
+        myEmployer = employer;
+        hoursWorked = new ArrayList<>();
+        myWorksites = new ArrayList<Worksite>();
     }
 
     public Long getEmployeeId() {
@@ -51,7 +62,29 @@ public class Employee {
         this.hourlyPayRate = hourlyPayRate;
     }
 
+    public boolean hasWorksite(Worksite siteToCheck){
+        if(myWorksites.contains(siteToCheck)){
+                return true;
+            } else return false;
+        }
 
+    public void addWorksite(Worksite newPlace){
+        myWorksites.add(newPlace);
+        hoursWorked.add(0D);
+        //since the hours worked and new workplace are made in pairs and at the same time, the same index # can be used
+        newPlace.addWorker((this));
+    }
+
+    public void logHours(int hours, Worksite placeOfWork){
+        int matchingSlotOfWorksite = myWorksites.indexOf(placeOfWork);
+        double previousTotal = hoursWorked.get(matchingSlotOfWorksite);
+        hoursWorked.set(matchingSlotOfWorksite, hours + previousTotal);
+    }
+
+    public double getHoursAtWorksite(Worksite specifiedSite){
+        int matchingSlotOfWorksite = myWorksites.indexOf(specifiedSite);
+        return hoursWorked.get(matchingSlotOfWorksite);
+    }
     //TODO override the printouts
     @Override
     public String toString(){
